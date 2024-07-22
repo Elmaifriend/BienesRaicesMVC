@@ -1,0 +1,21 @@
+{
+    "name": "elmaifriend/bienesraices_inicio",
+    "description": "Programacion orientada a objetos",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Elmaifriend"
+        }
+    ],
+    "require": {
+        "intervention/image": "^3.7",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "MVC\\" : "./",
+            "Model\\" : "./models",
+            "Controller\\" : "./controllers"
+        }
+    }
+}
