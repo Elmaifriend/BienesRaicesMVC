@@ -10,7 +10,7 @@
             <legend>Informacion personal</legend>
 
             <label for="nombre">Nombre:</label>
-            <input required type="text" placeholder="Tu Nombre:" id="nombre" name="contacto[nombre]>
+            <input required type="text" placeholder="Tu Nombre:" id="nombre" name="contacto[nombre]">
 
             <label for="email">E-mail:</label>
             <input required type="email" placeholder="Tu Email:" id="email" name="contacto[email]">
@@ -43,10 +43,10 @@
 
             <div class="forma-contacto">
                 <label for="contactar-telefono">Telefono</label>
-                <input required name="contacto" type="radio" value="telefono" id="contactar-telefono" name="contacto[contacto]">
+                <input required type="radio" value="telefono" id="contactar-telefono" name="contacto[contacto]">
 
                 <label for="contactar-email">E-mail</label>
-                <input required name="contacto" type="radio" value="email" id="contactar-email" name="contacto[contacto]">
+                <input required type="radio" value="email" id="contactar-email" name="contacto[contacto]">
             </div>
 
             <p>Si eligio telefono, elija la fecha y la hora</p>

@@ -60,44 +60,49 @@
         public static function contacto( Router $router ){
             
             if( $_SERVER["REQUEST_METHOD"] === "POST"){
-                try{
-                    //crea una instancia de PHPMailer
-                    $mail = new PHPMailer();                     
+                $respuestas = $_POST["contacto"];
 
-                    //configurar STMP
-                    $mail->isSMTP();
-                    $mail->Host = "sandbox.smtp.mailtrap.io";
-                    $mail->SMTPAuth = true;
-                    $mail->Port = 587;
-                    $mail->Username = "4e438e4829019e";
-                    $mail->Password = "a32327c7940c21";
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                //crea una instancia de PHPMailer
+                $mail = new PHPMailer();                     
 
-                    //Configurar el contenido del mail
-                    $mail->setFrom("admin@bienesraices.com", "Bienes Raices");
-                    $mail->addAddress("fgp332@gmail.com", "Usuario");
-                    $mail->Subject = "Tienes un nuevo mensaje";
+                //configurar STMP
+                $mail->isSMTP();
+                $mail->Host = "sandbox.smtp.mailtrap.io";
+                $mail->SMTPAuth = true;
+                $mail->Port = 587;
+                $mail->Username = "4e438e4829019e";
+                $mail->Password = "a32327c7940c21";
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
-                    //Habilitar HTML
-                    $mail->isHTML(true);
-                    $mail->CharSet = "UTF-8";
+                //Configurar el contenido del mail
+                $mail->setFrom("admin@bienesraices.com", "Bienes Raices");
+                $mail->addAddress("fgp332@gmail.com", "Usuario");
+                $mail->Subject = "Tienes un nuevo mensaje";
 
-                    //Definir el contenido 
-                    $contenido = "<html><h1> Este es el cuerpo del mensaje </h1></html>";
-                    $mail->Body = $contenido;
-                    $mail->AltBody = "Esto es texto alternativo sin html";
+                //Habilitar HTML
+                $mail->isHTML(true);
+                $mail->CharSet = "UTF-8";
 
-                    //Enviar el mail
-                    if( $mail->send() ){
-                        echo "El mensaje se envio correctamente";
-                    } else {
-                        echo "El mensaje no se pudo enviar...";
-                    }
-
-                } catch (Exception $e) {
-                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-                }
+                //Definir el contenido 
+                $contenido = "<html>";
+                $contenido .= "<h1> Tienes un nuevo mensaje </h1>";
+                $contenido .= "<p>Nombre: " . $respuestas["nombre"] . " </p>";
+                $contenido .= "<p>Email: " . $respuestas["email"] . " </p>";
+                $contenido .= "<p>Telefono: " . $respuestas["telefono"] . " </p>";
+                $contenido .= "<p>Mensaje: " . $respuestas["mensaje"] . " </p>";
+                $contenido .= "<p>Opcion: " . $respuestas["opciones"] . " </p>";
+                $contenido .= "<p>Presupuesto: " . $respuestas["presupuesto"] . " </p>";
+                $contenido .= "<p>Forma de contacto: " . $respuestas["contacto"] . " </p>";
+                $contenido .= "<p>Fecha: " . $respuestas["fecha"] . " </p>";
+                $contenido .= "<p>Hora: " . $respuestas["hora"] . " </p>";
+                $contenido .= "</html>";
                 
+                
+                $mail->Body = $contenido;
+                $mail->AltBody = "Esto es texto alternativo sin html";
+
+                //Enviar el mail
+                $mail->send();
             }
             
             
