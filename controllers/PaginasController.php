@@ -4,6 +4,9 @@
 
     use MVC\Router;
     use Model\Propiedad;
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\SMTP;
 
     class PaginasController{
         public static function index( Router $router ){ 
@@ -57,11 +60,44 @@
         public static function contacto( Router $router ){
             
             if( $_SERVER["REQUEST_METHOD"] === "POST"){
+                try{
+                    //crea una instancia de PHPMailer
+                    $mail = new PHPMailer();                     
 
-                debuguear($_POST);
+                    //configurar STMP
+                    $mail->isSMTP();
+                    $mail->Host = "sandbox.smtp.mailtrap.io";
+                    $mail->SMTPAuth = true;
+                    $mail->Port = 587;
+                    $mail->Username = "4e438e4829019e";
+                    $mail->Password = "a32327c7940c21";
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
-                $args = $_POST["contacto"];
-                debuguear($args);
+                    //Configurar el contenido del mail
+                    $mail->setFrom("admin@bienesraices.com", "Bienes Raices");
+                    $mail->addAddress("fgp332@gmail.com", "Usuario");
+                    $mail->Subject = "Tienes un nuevo mensaje";
+
+                    //Habilitar HTML
+                    $mail->isHTML(true);
+                    $mail->CharSet = "UTF-8";
+
+                    //Definir el contenido 
+                    $contenido = "<html><h1> Este es el cuerpo del mensaje </h1></html>";
+                    $mail->Body = $contenido;
+                    $mail->AltBody = "Esto es texto alternativo sin html";
+
+                    //Enviar el mail
+                    if( $mail->send() ){
+                        echo "El mensaje se envio correctamente";
+                    } else {
+                        echo "El mensaje no se pudo enviar...";
+                    }
+
+                } catch (Exception $e) {
+                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                }
+                
             }
             
             
