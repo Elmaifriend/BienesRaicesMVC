@@ -3,12 +3,6 @@ document.addEventListener("DOMContentLoaded", function(){
     eventListeners();
     
     darkMode();
-
-    //Mostrar campos condicionales 
-    const metodoContacto = document.querySelectorAll('input[name="contacto[contacto]"]');
-    metodoContacto.forEach( (input) =>{
-        input.addEventListener("click", mostrarFormaContacto);
-    });
 });
 
 function darkMode(){
@@ -37,6 +31,12 @@ function eventListeners(){
     const mobileMenu = document.querySelector(".mobile-menu");
     
     mobileMenu.addEventListener("click", navegacionResponsive);
+
+    //Mostrar campos condicionales 
+    const metodoContacto = document.querySelectorAll('input[name="contacto[contacto]"]');
+    metodoContacto.forEach( (input) =>{
+        input.addEventListener("click", mostrarFormaContacto);
+    });
 }
 
 function navegacionResponsive(){
@@ -65,6 +65,4 @@ function mostrarFormaContacto( event ){
             <input required type="email" placeholder="Tu Email:" id="email" name="contacto[email]">
         `;
     }
-
-    
 }
