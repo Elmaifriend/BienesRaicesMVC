@@ -1,6 +1,10 @@
 <main class="contenedor seccion">
     <h1>Contacto</h1>
 
+    <?php if( $msjStatus ): ?>
+        <p class="alerta exito"><?php echo $msjStatus; ?></p>
+    <?php endif; ?>
+
     <img loading="lazy" src="/img/destacada3.jpg" alt="imagen de contacto">
 
     <h2>Llene el formulario de contacto</h2>

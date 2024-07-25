@@ -6,6 +6,7 @@
     use Controller\PropiedadController;
     use Controller\VendedorController;
     use Controller\PaginasController;
+    use Controller\LoginController;
 
     $router = new Router();
 
@@ -39,6 +40,12 @@
     $router->get("/entrada", [PaginasController::class, "entrada"]);
     $router->get("/contacto", [PaginasController::class, "contacto"]);
     $router->post("/contacto", [PaginasController::class, "contacto"]);
+
+    //Login y autenicacion
+    $router->get("/login", [LoginController::class, "login"]);
+    $router->post("/login", [LoginController::class, "login"]);
+    $router->get("/logout", [LoginController::class, "logout"]);
+
 
 
     $router->comprobrarRutas();

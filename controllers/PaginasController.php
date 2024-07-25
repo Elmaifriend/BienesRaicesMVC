@@ -59,6 +59,8 @@
 
         public static function contacto( Router $router ){
             
+            $msjStatus = null;
+
             if( $_SERVER["REQUEST_METHOD"] === "POST"){
                 $respuestas = $_POST["contacto"];
 
@@ -87,14 +89,25 @@
                 $contenido = "<html>";
                 $contenido .= "<h1> Tienes un nuevo mensaje </h1>";
                 $contenido .= "<p>Nombre: " . $respuestas["nombre"] . " </p>";
-                $contenido .= "<p>Email: " . $respuestas["email"] . " </p>";
-                $contenido .= "<p>Telefono: " . $respuestas["telefono"] . " </p>";
+
+
+               
+               
                 $contenido .= "<p>Mensaje: " . $respuestas["mensaje"] . " </p>";
                 $contenido .= "<p>Opcion: " . $respuestas["opciones"] . " </p>";
                 $contenido .= "<p>Presupuesto: " . $respuestas["presupuesto"] . " </p>";
-                $contenido .= "<p>Forma de contacto: " . $respuestas["contacto"] . " </p>";
-                $contenido .= "<p>Fecha: " . $respuestas["fecha"] . " </p>";
-                $contenido .= "<p>Hora: " . $respuestas["hora"] . " </p>";
+                $contenido .= "<p>Eligio ser contactado por " . $respuestas["contacto"] . " </p>";
+
+
+                //Enviar de forma condicional algunos campos de email o telefono
+                if( $respuestas["contacto"] === "telefono"){
+                    $contenido .= "<p>Telefono: " . $respuestas["telefono"] . " </p>";
+                    $contenido .= "<p>Fecha: " . $respuestas["fecha"] . " </p>";
+                    $contenido .= "<p>Hora: " . $respuestas["hora"] . " </p>";
+                } else {
+                    $contenido .= "<p>Email: " . $respuestas["email"] . " </p>";
+
+                }
                 $contenido .= "</html>";
                 
                 
@@ -102,12 +115,16 @@
                 $mail->AltBody = "Esto es texto alternativo sin html";
 
                 //Enviar el mail
-                $mail->send();
+                if( $mail->send() ){
+                    $msjStatus = "Mensaje enviado correctamente";
+                } else {
+                    $msjStatus = "El mensaje no se pudo enviar";
+                }
             }
             
             
             $router->render("paginas/contacto", [
-
+                "msjStatus" => $msjStatus
             ]);
         }
 
