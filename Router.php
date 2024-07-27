@@ -8,6 +8,7 @@
 
         public $rutasGET = [];
         public $rutasPOST = [];
+        public $rutasProtegidas = [];
 
         //Registar rutas GET y asociarles una funcion
         public function get( $url, $function ){
@@ -19,8 +20,16 @@
             $this->rutasPOST[$url] = $function;
         }
 
+        public function protegerRuta( $url ){
+            $this->rutasProtegidas[] = $url;
+        }
+
 
         public function comprobrarRutas(){
+
+            session_start();
+            $isAuth = $_SESSION["login"] ?? NULL;
+
             $urlActual = $_SERVER["PATH_INFO"] ?? "/";
             $metodo = $_SERVER["REQUEST_METHOD"];
 
@@ -28,6 +37,10 @@
                 $function = $this->rutasGET[$urlActual] ?? NULL;
             } else {
                 $function = $this->rutasPOST[$urlActual] ?? NULL;
+            }
+
+            if( in_array( $urlActual, $this->rutasProtegidas ) && !$isAuth ){
+                header( "Location: /");
             }
 
             //Si la URL existe y tiene una funcion asociada 

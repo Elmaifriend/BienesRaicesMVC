@@ -41,10 +41,21 @@
     $router->get("/contacto", [PaginasController::class, "contacto"]);
     $router->post("/contacto", [PaginasController::class, "contacto"]);
 
+
     //Login y autenicacion
     $router->get("/login", [LoginController::class, "login"]);
     $router->post("/login", [LoginController::class, "login"]);
     $router->get("/logout", [LoginController::class, "logout"]);
+
+    
+    //Rutas protegidas
+    $router->protegerRuta("/admin");
+    $router->protegerRuta("/propiedades/crear");
+    $router->protegerRuta("/propiedades/actualizar");
+    $router->protegerRuta("/propiedades/eliminar");
+    $router->protegerRuta("/vendedores/crear");
+    $router->protegerRuta("/vendedores/actualizar");
+    $router->protegerRuta("/vendedores/eliminar");
 
 
 
