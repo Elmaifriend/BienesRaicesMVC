@@ -8,7 +8,7 @@
         $inicio = false;
     }
 
-    $auth = $_SESSION["auth"] ?? false;
+    $auth = $_SESSION["login"] ?? false;
 ?>
 
 
@@ -43,7 +43,7 @@
                         <a href="/blog">Blog</a>
                         <a href="/contacto">Contacto</a>
                         <?php if( $auth ) : ?>
-                            <a href="/cerrarSesion">Cerrar Sesion</a>
+                            <a href="/logout">Cerrar Sesion</a>
                         <?php endif; ?>
                     </nav>
                 </div>
