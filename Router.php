@@ -30,7 +30,18 @@
             session_start();
             $isAuth = $_SESSION["login"] ?? NULL;
 
-            $urlActual = $_SERVER["PATH_INFO"] ?? "/";
+            // Descomper la URL en path y parámetros de consulta
+            $urlActual = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $queryString = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY) ?? "";
+        
+            // Convierte el query string en un array asociativo
+            $queryParams = NULL;
+            parse_str($queryString, $queryParams);
+        
+            // Asigna el array de parámetros de consulta a $_GET
+            $_GET = $queryParams;
+        
+            
             $metodo = $_SERVER["REQUEST_METHOD"];
 
             if( $metodo === "GET" ){
